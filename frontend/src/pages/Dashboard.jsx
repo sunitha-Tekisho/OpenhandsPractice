@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../utils/api';
 
 const CATEGORIES = ['Food', 'Transport', 'Shopping', 'Bills', 'Entertainment', 'Health', 'Other'];
 
@@ -21,7 +22,7 @@ export default function Dashboard() {
     const year = now.getFullYear();
 
     try {
-      const res = await fetch(`/api/expenses?month=${month}&year=${year}`, {
+      const res = await fetch(`${API_BASE_URL}/api/expenses?month=${month}&year=${year}`, {
         headers: { Authorization: `Bearer ${getToken()}` }
       });
       const data = await res.json();
@@ -42,7 +43,7 @@ export default function Dashboard() {
     setAdding(true);
 
     try {
-      const res = await fetch('/api/expenses', {
+      const res = await fetch(`${API_BASE_URL}/api/expenses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`/api/expenses/${id}`, {
+      await fetch(`${API_BASE_URL}/api/expenses/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${getToken()}` }
       });

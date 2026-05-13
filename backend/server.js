@@ -37,7 +37,19 @@ db.exec(`
 `);
 
 // Middleware
-app.use(cors());
+// CORS configuration - allow requests from Vercel frontend
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'https://openhandspractice-*.vercel.app',
+    /\.vercel\.app$/
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Health check route (optional but useful on Render)

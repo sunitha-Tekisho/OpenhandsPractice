@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../utils/api';
 
 const CATEGORY_COLORS = {
   Food: '#10b981',
@@ -23,7 +24,7 @@ export default function Analytics() {
     const month = now.getMonth() + 1;
 
     try {
-      const res = await fetch(`/api/analytics/${year}/${month}`, {
+      const res = await fetch(`${API_BASE_URL}/api/analytics/${year}/${month}`, {
         headers: { Authorization: `Bearer ${getToken()}` }
       });
       const data = await res.json();
